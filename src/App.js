@@ -1,24 +1,38 @@
 import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
-
+// import Modal from './components/Modal/Modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { popupValue } from './services/reducerslice';
+import Header from './components/Header/Header';
 function App() {
+  const dispatch=useDispatch();
+  const popupState = useSelector(state => state.loginPopup.value);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+      dispatch(popupValue(true));
+
+      console.log(popupState);
+    }
+
   return (
+    <>
+    
+    
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Header/>
+        <button
+         onClick={handleSubmit}
         >
-          Learn React
-        </a>
+          Show Modal
+        </button>
       </header>
     </div>
+  </>
   );
 }
 
